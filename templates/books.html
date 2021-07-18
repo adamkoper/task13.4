@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>Biblioteka</title>
@@ -15,12 +15,14 @@
     <th>Tytuł</th>
     <th>Opis</th>
     <th>Rodzaj</th>
+    <th>Usuń</th>
     </thead>
 {% for todo in todos %}
     <tr>
         <td><a href="/todos/{{ loop.index }}">{{ todo.title }}</a></td>
         <td>{{ todo.description }}</td>
         <td>{{ todo.type }}</td>
+        <td><input type="submit" value="Usuń"></td>
     </tr>
 {% endfor %}
 </table>
@@ -36,7 +38,7 @@
                 </tr>
             {% endfor %}
         </table>
-        <input type="submit" value="Go">
+        <input type="submit" value="Dodaj">
     </form>
 </div>
 </body>

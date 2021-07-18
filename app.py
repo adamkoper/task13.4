@@ -16,7 +16,7 @@ def todos_list():
             todos.save_all()
         return redirect(url_for("todos_list"))
 
-    return render_template("todos.html", form=form, todos=todos.all(), error=error)
+    return render_template("books.html", form=form, todos=todos.all(), error=error)
 
 
 @app.route("/todos/<int:todo_id>/", methods=["GET", "POST"])
@@ -28,7 +28,7 @@ def todo_details(todo_id):
         if form.validate_on_submit():
             todos.update(todo_id - 1, form.data)
         return redirect(url_for("todos_list"))
-    return render_template("todo.html", form=form, todo_id=todo_id)
+    return render_template("book.html", form=form, todo_id=todo_id)
 
 
 if __name__ == "__main__":

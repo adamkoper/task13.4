@@ -1,1 +1,14 @@
-[{"title": "dwa", "description": "py", "done": true}, {"title": "Bubu", "description": "Starsza powie\u015b\u0107\r\n", "type": "Dramat"}]
+[
+  {
+    "id": 1,
+    "title": "Lekcja angielskiego",
+    "description": "Czasowniki regularne",
+    "done": false
+  },
+  {
+    "id": 2,
+    "title": "Python",
+    "description": "Dekoratory",
+    "done": false
+  }
+]
