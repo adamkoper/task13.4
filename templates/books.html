@@ -15,20 +15,18 @@
     <th>Tytuł</th>
     <th>Opis</th>
     <th>Rodzaj</th>
-    <th>Usuń</th>
     </thead>
-{% for todo in todos %}
+{% for book in books %}
     <tr>
-        <td><a href="/todos/{{ loop.index }}">{{ todo.title }}</a></td>
-        <td>{{ todo.description }}</td>
-        <td>{{ todo.type }}</td>
-        <td><input type="submit" value="Usuń"></td>
+        <td><a href="/api/v1.0/book/{{ loop.index }}">{{ book.title }}</a></td>
+        <td>{{ book.description }}</td>
+        <td>{{ book.type }}</td>
     </tr>
 {% endfor %}
 </table>
 <div>
     <h2> Dodaj nową książkę: </h2>
-    <form method="POST" action="/todos/">
+    <form method="POST" action="/api/v1.0/library/">
         {{ form.hidden_tag() }}
         <table>
             {% for field in form if field.widget.input_type != 'hidden' %}

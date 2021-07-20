@@ -2,11 +2,11 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Książka </title>
+    <title>Książka {{book_id}} </title>
 </head>
 <body>
     <h2> Szczegóły: </h2>
-    <form method="POST" action="/todos/{{ todo_id }}/">
+    <form method="POST" action="/api/v1.0/book/{{ book_id }}/">
         {{ form.hidden_tag() }}
         <table>
             {% for field in form if field.widget.input_type != 'hidden' %}

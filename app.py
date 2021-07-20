@@ -1,34 +1,38 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, abort
 
-from forms import TodoForm
-from models import todos
+from forms import BookForm
+from models import books
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "nininini"
 
-@app.route("/todos/", methods=["GET", "POST"])
-def todos_list():
-    form = TodoForm()
+@app.route("/api/v1.0/library/", methods=["GET"])
+def books_list():
+    form = BookForm()
     error = ""
-    if request.method == "POST":
-        if form.validate_on_submit():
-            todos.create(form.data)
-            todos.save_all()
-        return redirect(url_for("todos_list"))
+    return render_template("books.html", form=form, books=books.all(), error=error)
 
-    return render_template("books.html", form=form, todos=todos.all(), error=error)
+@app.route("/api/v1.0/library/", methods=["POST"])
+def create_book():
+    form = BookForm()
+    if form.validate_on_submit():
+        books.create(form.data)
+    return redirect(url_for('books_list'))
 
+@app.route("/api/v1.0/book/<int:book_id>/", methods=["GET"])
+def book_details(book_id):
+    book = books.get(book_id - 1)
+    form = BookForm(data=book)
+    return render_template("book.html", form=form, book_id=book_id)
 
-@app.route("/todos/<int:todo_id>/", methods=["GET", "POST"])
-def todo_details(todo_id):
-    todo = todos.get(todo_id - 1)
-    form = TodoForm(data=todo)
+@app.route("/api/v1.0/book/<int:book_id>/", methods=["POST"])
+def book_update(book_id):
+    book = books.get(book_id - 1)
+    form = BookForm(data=book)
+    if form.validate_on_submit():
+        books.update(book_id - 1, form.data)
+    return redirect(url_for('books_list'))
 
-    if request.method == "POST":
-        if form.validate_on_submit():
-            todos.update(todo_id - 1, form.data)
-        return redirect(url_for("todos_list"))
-    return render_template("book.html", form=form, todo_id=todo_id)
 
 
 if __name__ == "__main__":
